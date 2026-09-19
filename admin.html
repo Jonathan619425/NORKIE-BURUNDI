@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administration - NORKIE-BURUNDI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        .admin {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #008000;
+            text-align: center;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #008000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="admin">
+
+    <h1>Publier une actualité NORKIE-BURUNDI</h1>
+
+    <label>Titre de l'actualité</label>
+
+    <input type="text" id="titre"
+           placeholder="Exemple : Nouvelle activité NORKIE-BURUNDI">
+
+    <label>Contenu de l'actualité</label>
+
+    <textarea id="contenu" rows="8"
+              placeholder="Écrivez votre actualité ici..."></textarea>
+
+    <button onclick="publier()">Publier l'actualité</button>
+
+</div>
+
+<script>
+
+function publier() {
+
+    const titre = document.getElementById("titre").value;
+    const contenu = document.getElementById("contenu").value;
+
+    if (titre === "" || contenu === "") {
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
+
+    alert("Votre actualité a été préparée !");
+}
+
+</script>
+
+</body>
+</html>
