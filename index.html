@@ -1,203 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NORKIE-BURUNDI</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f8f5;
-            color: #222;
-        }
-
-        header {
-            background: #087443;
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-        }
-
-        header h1 {
-            font-size: 38px;
-            margin: 0 0 10px;
-        }
-
-        header p {
-            font-size: 18px;
-            margin: 0;
-        }
-
-        nav {
-            background: #075c36;
-            text-align: center;
-            padding: 15px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: bold;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: white;
-        }
-
-        .hero h2 {
-            color: #087443;
-            font-size: 32px;
-        }
-
-        .hero p {
-            font-size: 19px;
-            max-width: 700px;
-            margin: auto;
-            line-height: 1.6;
-        }
-
-        .section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .section h2 {
-            color: #087443;
-        }
-
-        .cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 25px;
-        }
-
-        .card {
-            background: white;
-            width: 280px;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-        }
-
-        .card h3 {
-            color: #087443;
-        }
-
-        .contact {
-            background: #087443;
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .whatsapp {
-            display: inline-block;
-            background: white;
-            color: #087443;
-            padding: 14px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
-        footer {
-            background: #06462a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORKIE-BURUNDI | Cankuzo Centre</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f6fdf7;color:#222}
+header{background:#0f5d2f;color:#fff;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
+.logo{font-weight:700;font-size:22px}.logo span{color:#a8e6a3}
+.hero{background:linear-gradient(rgba(15,93,47,0.88),rgba(15,93,47,0.88)),url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=1200');background-size:cover;padding:75px 5%;text-align:center;color:#fff}
+.hero h1{font-size:36px;margin-bottom:10px}.hero p{font-size:17px}
+.btn{background:#25D366;color:#fff;padding:13px 28px;border-radius:30px;text-decoration:none;font-weight:600;display:inline-block;margin-top:18px}
+.container{padding:45px 5%}.section-title{text-align:center;margin-bottom:30px}.section-title h2{color:#0f5d2f;font-size:30px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,0.08)}
+.card img{width:100%;height:200px;object-fit:cover}.card-body{padding:16px}.card-body h3{color:#0f5d2f;font-size:17px}
+.price{color:#0f5d2f;font-weight:700;font-size:19px;margin:8px 0}.card-body .btn{width:100%;text-align:center;background:#0f5d2f}
+footer{background:#0a3d1f;color:#cde9d0;text-align:center;padding:30px 5%;margin-top:40px}
+.whatsapp-float{position:fixed;bottom:22px;right:22px;background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+</style>
 </head>
-
 <body>
-
 <header>
-    <h1>NORKIE-BURUNDI</h1>
-    <p>Santé • Nutrition • Bien-être</p>
+<div class="logo">NORKIE-<span>BURUNDI</span></div>
+<div>Cankuzo Centre</div>
 </header>
-
-<nav>
-    <a href="#accueil">Accueil</a>
-    <a href="#apropos">À propos</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-</nav>
-
-<section class="hero" id="accueil">
-    <h2>Bienvenue chez NORKIE-BURUNDI</h2>
-    <p>
-        La santé et le bien-être de la population,
-        c'est notre priorité.
-    </p>
-    <p>
-        Découvrez nos informations et nos solutions
-        dans le domaine de la santé et de la nutrition.
-    </p>
+<section class="hero">
+<h1>Santé • Nutrition • Bien-être</h1>
+<p>Produits naturels pour toute la famille - Livraison Cankuzo & Burundi</p>
+<a class="btn" href="https://wa.me/25762189087?text=Bonjour%20NORKIE-BURUNDI%20je%20suis%20intéressé" target="_blank">Commander: +257 62189087</a>
 </section>
-
-<section class="section" id="apropos">
-    <h2>À propos de NORKIE-BURUNDI</h2>
-    <p>
-        NORKIE-BURUNDI présente des informations et des
-        solutions orientées vers la santé, la nutrition
-        et le bien-être.
-    </p>
-</section>
-
-<section class="section" id="services">
-    <h2>Nos domaines</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <h3>Santé</h3>
-            <p>
-                Informations et accompagnement autour
-                de la santé et du bien-être.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Nutrition</h3>
-            <p>
-                Découvrez l'importance d'une bonne
-                alimentation pour votre bien-être.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Bien-être</h3>
-            <p>
-                Des informations pour contribuer à
-                une meilleure qualité de vie.
-            </p>
-        </div>
-
-    </div>
-</section>
-
-<section class="contact" id="contact">
-    <h2>Contactez-nous</h2>
-    <p>NORKIE-BURUNDI — Cankuzo Centre</p>
-    <p>WhatsApp : +257 62189087</p>
-
-    <a class="whatsapp"
-       href="https://wa.me/25762189087">
-       Nous contacter sur WhatsApp
-    </a>
-</section>
-
-<footer>
-    <p>© 2026 NORKIE-BURUNDI — Tous droits réservés.</p>
-</footer>
-
-</body>
-</html>
+<section class="container">
+<div class="section-title"><h2>Nos Produits Populaires</h2><p>100% Naturel - Qualité Garantie</p></div>
+<div class="products">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?q
