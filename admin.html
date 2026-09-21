@@ -1,44 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>ADMIN NORKIE</title>
-<style>body{font-family:sans-serif;padding:15px;background:#f0fdf4}input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc}button{background:#16a34a;color:white;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;font-size:16px;margin-top:10px} .card{background:white;padding:15px;border-radius:10px;margin-top:20px} pre{background:#222;color:#0f0;padding:10px;overflow:auto;border-radius:8px}</style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADMIN NORKIE</title>
+<style>body{font-family:sans-serif;padding:15px;background:#f0fdf4}input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;box-sizing:border-box}button{background:#16a34a;color:white;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;font-size:16px}pre{background:#222;color:#0f0;padding:10px;border-radius:8px;overflow:auto;white-space:pre-wrap}.card{background:white;padding:15px;border-radius:10px;margin-top:20px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}</style>
 </head>
 <body>
 <h2>🔐 ADMIN NORKIE-BURUNDI</h2>
 <p>Remplis et clique Générer. Pas de code !</p>
-
 <label>Nom du produit:</label>
 <input id="nom" placeholder="Ex: Moringa Poudre">
-
 <label>Prix:</label>
 <input id="prix" placeholder="Ex: 12,000 FBu">
-
 <label>Description:</label>
 <textarea id="desc" placeholder="Ex: 100% naturel de Cankuzo"></textarea>
-
-<label>Nom de la photo (après upload sur GitHub):</label>
+<label>Nom de la photo (après upload):</label>
 <input id="photo" placeholder="Ex: IMG_20260912_105904_339.jpg">
-
 <button onclick="generer()">GÉNÉRER MON PRODUIT</button>
-
 <div id="resultat"></div>
-
 <script>
 function generer(){
 let n=document.getElementById('nom').value;
 let p=document.getElementById('prix').value;
 let d=document.getElementById('desc').value;
 let ph=document.getElementById('photo').value;
-let code = `<div style="background:white;border-radius:12px;padding:15px;margin:20px auto;max-width:600px;box-shadow:0 5px 15px rgba(0,0,0,0.1);border-left:5px solid #16a34a">
-<h3>🌿 ${n}</h3>
-<img src="${ph}" style="width:100%;border-radius:10px;max-height:400px;object-fit:cover">
-<p>${d}</p>
-<div style="font-weight:bold;color:#0f5d2f;font-size:18px;margin:10px 0">${p}</div>
-<a href="https://wa.me/25762189087?text=Bonjour%20NORKIE%2C%20je%20veux%20commander%20${encodeURIComponent(n)}%20(${encodeURIComponent(p)})" style="display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">💬 Commander sur WhatsApp</a>
-</div>`;
-
-document.getElementById('resultat').innerHTML = 
-`<div class="card"><h3>Aperçu :</h3>${code}<h3>Code à copier dans ton site :</h3><pre>${code.replace(/</g,'&lt;')}</pre><p style="color:red">👉 Copie ce code et colle-le dans index.html où tu veux !</p></div>`;
+let code=`<div style="background:white;border-radius:12px;padding:15px;margin:20px auto;max-width:600px;box-shadow:0 5px 15px rgba(0,0,0,0.1);border-left:5px solid #16a34a"><h3>🌿 ${n}</h3><img src="${ph}" style="width:100%;border-radius:10px"><p>${d}</p><div style="font-weight:bold;color:#0f5d2f;font-size:18px;margin:10px 0">${p}</div><a href="https://wa.me/25762189087?text=Bonjour NORKIE, je veux commander ${n}" style="display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">💬 Commander</a></div>`;
+document.getElementById('resultat').innerHTML=`<div class="card"><h3>Aperçu :</h3>${code}<h3>Code à copier :</h3><pre>${code.replace(/</g,'&lt;')}</pre></div>`;
 }
 </script>
 </body>
