@@ -1,125 +1,45 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin NORKIE - Tout Publier</title>
-<style>
-body{font-family:Arial;background:#f0fdf4;margin:0;padding:15px}
-.box{max-width:600px;margin:auto;background:white;border-radius:15px;padding:20px;box-shadow:0 4px 15px #0002}
-h1{background:#14532d;color:white;padding:15px;border-radius:10px;text-align:center;margin:0 0 15px 0}
-.tabs{display:flex;gap:5px;margin-bottom:15px;flex-wrap:wrap}
-.tab{flex:1;padding:10px;background:#e5e7eb;border:none;border-radius:8px;cursor:pointer;font-weight:bold;min-width:70px}
-.tab.active{background:#14532d;color:white}
-.panel{display:none}.panel.active{display:block}
-input,textarea{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
-button.pub{background:#16a34a;color:white;padding:14px;border:none;border-radius:8px;width:100%;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
-.preview{max-width:100%;border-radius:10px;margin-top:10px;max-height:300px}
-.item{background:#f9fafb;border:1px solid #e5e7eb;padding:15px;border-radius:10px;margin:15px 0}
-.codebox{background:#1f2937;color:#10b981;padding:10px;border-radius:8px;font-size:12px;overflow:auto;white-space:pre-wrap;margin-top:10px}
-</style></head><body>
-<div class="box">
-<h1>👑 ADMIN NORKIE BURUNDI</h1>
-<p style="text-align:center">Code: <b>6218</b> - Connecté</p>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>ADMIN NORKIE</title>
+<style>body{font-family:sans-serif;padding:15px;background:#f0fdf4}input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc}button{background:#16a34a;color:white;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;font-size:16px;margin-top:10px} .card{background:white;padding:15px;border-radius:10px;margin-top:20px} pre{background:#222;color:#0f0;padding:10px;overflow:auto;border-radius:8px}</style>
+</head>
+<body>
+<h2>🔐 ADMIN NORKIE-BURUNDI</h2>
+<p>Remplis et clique Générer. Pas de code !</p>
 
-<div class="tabs">
-<button class="tab active" onclick="showTab(0)">📝 Texte</button>
-<button class="tab" onclick="showTab(1)">📷 Photo+Texte</button>
-<button class="tab" onclick="showTab(2)">🎥 Vidéo</button>
-<button class="tab" onclick="showTab(3)">📄 Document</button>
-</div>
+<label>Nom du produit:</label>
+<input id="nom" placeholder="Ex: Moringa Poudre">
 
-<!-- 1 TEXTE -->
-<div id="p0" class="panel active">
-<h3>1. Publier un Texte</h3>
-<input id="t1" placeholder="Titre ex: Promotion Moringa">
-<textarea id="c1" rows="4" placeholder="Écris ton texte ici..."></textarea>
-<button class="pub" onclick="publier('texte')">Publier Texte</button>
-</div>
+<label>Prix:</label>
+<input id="prix" placeholder="Ex: 12,000 FBu">
 
-<!-- 2 PHOTO + TEXTE -->
-<div id="p1" class="panel">
-<h3>2. Publier Photo + Texte</h3>
-<input id="t2" placeholder="Titre de la photo">
-<input type="file" id="f2" accept="image/*" onchange="previewFile('f2','pre2')">
-<img id="pre2" class="preview" style="display:none">
-<textarea id="c2" rows="3" placeholder="Description de la photo..."></textarea>
-<button class="pub" onclick="publier('photo')">Publier Photo</button>
-</div>
+<label>Description:</label>
+<textarea id="desc" placeholder="Ex: 100% naturel de Cankuzo"></textarea>
 
-<!-- 3 VIDEO -->
-<div id="p2" class="panel">
-<h3>3. Publier Vidéo</h3>
-<input id="t3" placeholder="Titre de la vidéo">
-<input type="file" id="f3" accept="video/*" onchange="previewFile('f3','pre3')">
-<video id="pre3" class="preview" style="display:none" controls></video>
-<textarea id="c3" rows="2" placeholder="Description vidéo..."></textarea>
-<p style="font-size:11px;color:red">⚠️ Vidéo max 20Mo sinon ça ne marche pas sur GitHub</p>
-<button class="pub" onclick="publier('video')">Publier Vidéo</button>
-</div>
+<label>Nom de la photo (après upload sur GitHub):</label>
+<input id="photo" placeholder="Ex: IMG_20260912_105904_339.jpg">
 
-<!-- 4 DOCUMENT -->
-<div id="p3" class="panel">
-<h3>4. Publier Document (PDF, Word, etc)</h3>
-<input id="t4" placeholder="Nom du document ex: Liste de prix">
-<input type="file" id="f4" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.txt" onchange="previewFile('f4','pre4')">
-<div id="pre4" style="display:none;background:#fef3c7;padding:10px;border-radius:8px;margin-top:10px">📄 Document prêt</div>
-<textarea id="c4" rows="2" placeholder="Description du document..."></textarea>
-<button class="pub" onclick="publier('doc')">Publier Document</button>
-</div>
+<button onclick="generer()">GÉNÉRER MON PRODUIT</button>
 
-<div id="result"></div>
-
-<h3 style="margin-top:30px">📚 Toutes tes publications (sur ton téléphone seulement)</h3>
-<div id="liste"></div>
-
-<p style="text-align:center;margin-top:20px"><a href="index.html" style="color:#14532d;font-weight:bold;text-decoration:none">← Retour Boutique</a></p>
-</div>
+<div id="resultat"></div>
 
 <script>
-let fileData={};
-function showTab(n){document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',i==n));document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i==n))}
-function previewFile(inputId, previewId){
-  let file=document.getElementById(inputId).files[0]; if(!file) return;
-  let reader=new FileReader();
-  reader.onload=function(e){
-    fileData[inputId]=e.target.result;
-    fileData[inputId+'_name']=file.name;
-    let pre=document.getElementById(previewId);
-    pre.style.display='block';
-    if(pre.tagName=='IMG') pre.src=e.target.result;
-    else if(pre.tagName=='VIDEO') {pre.src=e.target.result; pre.load();}
-  };
-  if(inputId=='f4') reader.readAsDataURL(file); else reader.readAsDataURL(file);
+function generer(){
+let n=document.getElementById('nom').value;
+let p=document.getElementById('prix').value;
+let d=document.getElementById('desc').value;
+let ph=document.getElementById('photo').value;
+let code = `<div style="background:white;border-radius:12px;padding:15px;margin:20px auto;max-width:600px;box-shadow:0 5px 15px rgba(0,0,0,0.1);border-left:5px solid #16a34a">
+<h3>🌿 ${n}</h3>
+<img src="${ph}" style="width:100%;border-radius:10px;max-height:400px;object-fit:cover">
+<p>${d}</p>
+<div style="font-weight:bold;color:#0f5d2f;font-size:18px;margin:10px 0">${p}</div>
+<a href="https://wa.me/25762189087?text=Bonjour%20NORKIE%2C%20je%20veux%20commander%20${encodeURIComponent(n)}%20(${encodeURIComponent(p)})" style="display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">💬 Commander sur WhatsApp</a>
+</div>`;
+
+document.getElementById('resultat').innerHTML = 
+`<div class="card"><h3>Aperçu :</h3>${code}<h3>Code à copier dans ton site :</h3><pre>${code.replace(/</g,'&lt;')}</pre><p style="color:red">👉 Copie ce code et colle-le dans index.html où tu veux !</p></div>`;
 }
-
-function publier(type){
-  let titre, contenu, media, name;
-  if(type=='texte'){titre=document.getElementById('t1').value; contenu=document.getElementById('c1').value; media='';}
-  if(type=='photo'){titre=document.getElementById('t2').value; contenu=document.getElementById('c2').value; media=fileData['f2']||''; name=fileData['f2_name']||''}
-  if(type=='video'){titre=document.getElementById('t3').value; contenu=document.getElementById('c3').value; media=fileData['f3']||''; name=fileData['f3_name']||''}
-  if(type=='doc'){titre=document.getElementById('t4').value; contenu=document.getElementById('c4').value; media=fileData['f4']||''; name=fileData['f4_name']||''}
-
-  if(!titre){alert('Mets un titre!');return}
-  let posts=JSON.parse(localStorage.getItem('norkie_all')||'[]');
-  posts.unshift({type,titre,contenu,media,name,date:new Date().toLocaleString()});
-  localStorage.setItem('norkie_all',JSON.stringify(posts));
-
-  // Afficher succès + code à copier pour index.html
-  let htmlCode='';
-  if(type=='texte') htmlCode=`<div class="item"><h3>${titre}</h3><p>${contenu}</p></div>`;
-  if(type=='photo') htmlCode=`<div class="item"><h3>${titre}</h3><img src="${media.substring(0,50)}... (image)" style="max-width:100%"><p>${contenu}</p></div><p>Pour le site public, ajoute l'image dans GitHub et mets son lien</p>`;
-  if(type=='video') htmlCode=`<div class="item"><h3>${titre}</h3><video src="videos/${name}" controls></video><p>${contenu}</p></div>`;
-
-  document.getElementById('result').innerHTML=`<div class="item" style="border:2px solid green"><b style="color:green">✅ Publié avec succès!</b><br><b>${titre}</b><br>${type=='photo'?`<img src="${media}" class="preview" style="display:block">`:''}${type=='video'?`<video src="${media}" class="preview" style="display:block" controls></video>`:''}${type=='doc'?`<p>📄 ${name}</p>`:''}<p>${contenu}</p><small>${new Date().toLocaleString()}</small><div class="codebox"><b>ASTUCE pour que tout le monde le voit sur la boutique:</b><br>1. Va dans Add file > Upload files<br>2. Uploade ta photo/vidéo/doc<br>3. Puis ajoute une section dans index.html</div></div>`;
-  afficherListe();
-}
-
-function afficherListe(){
-  let posts=JSON.parse(localStorage.getItem('norkie_all')||'[]');
-  let h='';
-  posts.forEach(p=>{
-    h+=`<div class="item"><b>${p.type.toUpperCase()} - ${p.titre}</b><br><small>${p.date}</small>${p.type=='photo'?`<br><img src="${p.media}" class="preview" style="display:block">`:''}${p.type=='video'?`<br><video src="${p.media}" class="preview" style="display:block" controls></video>`:''}${p.type=='doc'?`<br>📄 ${p.name}`:''}<br>${p.contenu}</div>`;
-  });
-  document.getElementById('liste').innerHTML=h||'<p>Aucune publication encore</p>';
-}
-afficherListe();
 </script>
-</body></html>
+</body>
+</html>
