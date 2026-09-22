@@ -1,30 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADMIN NORKIE</title>
-<style>body{font-family:sans-serif;padding:15px;background:#f0fdf4}input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;box-sizing:border-box}button{background:#16a34a;color:white;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;font-size:16px}pre{background:#222;color:#0f0;padding:10px;border-radius:8px;overflow:auto;white-space:pre-wrap}.card{background:white;padding:15px;border-radius:10px;margin-top:20px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}</style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin NORKIE V3</title>
+<style>
+body{font-family:Arial;background:#f0fdf4;padding:10px;margin:0}
+.box{background:white;max-width:520px;margin:auto;padding:20px;border-radius:15px;box-shadow:0 2px 12px #bbb}
+h2{color:#14532d;text-align:center;margin:0}
+label{font-weight:bold;margin-top:12px;display:block;color:#14532d}
+select,input,textarea{width:100%;padding:12px;margin:6px 0 10px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
+button{background:#14532d;color:white;padding:14px;border:none;border-radius:10px;width:100%;font-weight:bold;margin-top:10px}
+.type-box{border:2px solid #dcfce7;background:#f7fef9;padding:12px;border-radius:10px;margin:10px 0}
+#previewImg{max-width:100%;border-radius:10px;display:none}
+video{max-width:100%;border-radius:10px}
+</style>
 </head>
 <body>
-<h2>🔐 ADMIN NORKIE-BURUNDI</h2>
-<p>Remplis et clique Générer. Pas de code !</p>
-<label>Nom du produit:</label>
-<input id="nom" placeholder="Ex: Moringa Poudre">
-<label>Prix:</label>
-<input id="prix" placeholder="Ex: 12,000 FBu">
-<label>Description:</label>
-<textarea id="desc" placeholder="Ex: 100% naturel de Cankuzo"></textarea>
-<label>Nom de la photo (après upload):</label>
-<input id="photo" placeholder="Ex: IMG_20260912_105904_339.jpg">
-<button onclick="generer()">GÉNÉRER MON PRODUIT</button>
-<div id="resultat"></div>
+<div class="box">
+<h2>🌿 NORKIE Admin V3</h2>
+<p style="text-align:center;color:#666">1.Texte / 2.Photo+Texte / 3.Video+Texte / 4.Document + Commander</p>
+
+<label>Type de publication</label>
+<select id="typePub" onchange="changeType()">
+<option value="texte">1. Texte seul</option>
+<option value="photo" selected>2. Photo + Texte</option>
+<option value="video">3. Video + Texte</option>
+<option value="doc">4. Document PDF + Texte</option>
+</select>
+
+<div class="type-box" id="typeInfo">📸 Photo + Texte</div>
+
+<label>Titre</label>
+<input id="t" placeholder="Ex: REVIVE Capsules">
+<label>Description</label>
+<textarea id="c" rows="4" placeholder="Description..."></textarea>
+<label>Prix FBu</label>
+<input id="prix" value="189000">
+
+<div id="fileZone">
+<label id="fileLabel">Photo JPG/PNG</label>
+<input type="file" id="fileInput" accept="image/*">
+</div>
+
+<img id="previewImg">
+<video id="previewVid" controls style="display:none"></video>
+<div id="docInfo" style="display:none;background:#fef3c7;padding:10px;border-radius:8px"></div>
+
+<button onclick="publier()">🚀 Publier sur le site</button>
+<button onclick="genererCode()" style="background:#0ea5e9">📋 Generer code GitHub permanent</button>
+<div id="msg"></div>
+<div id="codeResult" style="display:none;margin-top:10px">
+<div id="codeBox" style="background:#1e293b;color:white;padding:10px;border-radius:8px;white-space:pre-wrap;font-size:11px"></div>
+<button onclick="copyCode()" style="background:#475569">Copier le code</button>
+</div>
+<p style="text-align:center;margin-top:20px"><a href="index.html">← Voir boutique</a></p>
+</div>
+
 <script>
-function generer(){
-let n=document.getElementById('nom').value;
-let p=document.getElementById('prix').value;
-let d=document.getElementById('desc').value;
-let ph=document.getElementById('photo').value;
-let code=`<div style="background:white;border-radius:12px;padding:15px;margin:20px auto;max-width:600px;box-shadow:0 5px 15px rgba(0,0,0,0.1);border-left:5px solid #16a34a"><h3>🌿 ${n}</h3><img src="${ph}" style="width:100%;border-radius:10px"><p>${d}</p><div style="font-weight:bold;color:#0f5d2f;font-size:18px;margin:10px 0">${p}</div><a href="https://wa.me/25762189087?text=Bonjour NORKIE, je veux commander ${n}" style="display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">💬 Commander</a></div>`;
-document.getElementById('resultat').innerHTML=`<div class="card"><h3>Aperçu :</h3>${code}<h3>Code à copier :</h3><pre>${code.replace(/</g,'&lt;')}</pre></div>`;
-}
+let fileData="",fileName="";
+const typePub=document.getElementById('typePub'),fileInput=document.getElementById('fileInput'),fileLabel=document.getElementById('fileLabel'),typeInfo=document.getElementById('typeInfo'),previewImg=document.getElementById('previewImg'),previewVid=document.getElementById('previewVid'),docInfo=document.getElementById('docInfo'),fileZone=document.getElementById('fileZone');
+function changeType(){let v=typePub.value;fileData="";fileName="";previewImg.style.display='none';previewVid.style.display='none';docInfo.style.display='none';fileInput.value="";if(v==='texte'){fileZone.style.display='none';typeInfo.innerHTML="📝 Texte seul: promo, annonce";}else if(v==='photo'){fileZone.style.display='block';fileInput.accept="image/*";fileLabel.innerText="Photo JPG/PNG";typeInfo.innerHTML="📸 Photo + Texte: produit REVIVE";}else if(v==='video'){fileZone.style.display='block';fileInput.accept="video/*";fileLabel.innerText="Video MP4";typeInfo.innerHTML="🎥 Video + Texte: temoignage";}else{fileZone.style.display='block';fileInput.accept=".pdf";fileLabel.innerText="Document PDF";typeInfo.innerHTML="📄 Document + Texte: certificat";}}
+fileInput.addEventListener('change',function(e){let f=e.target.files[0];if(!f)return;fileName=f.name;let r=new FileReader();r.onload=function(){fileData=r.result;if(typePub.value==='photo'){previewImg.src=fileData;previewImg.style.display='block';}else if(typePub.value==='video'){previewVid.src=fileData;previewVid.style.display='block';}else{docInfo.innerHTML="Pret: "+fileName;docInfo.style.display='block';}};r.readAsDataURL(f);});
+function publier(){let titre=document.getElementById('t').value.trim(),contenu=document.getElementById('c').value.trim(),prixV=document.getElementById('prix').value.trim();if(!titre||!contenu){alert('Mets titre+description');return;}let actus=JSON.parse(localStorage.getItem('norkie_actu')||'[]');actus.unshift({type:typePub.value,titre,contenu,prix:prixV,file:fileData,fileName,date:new Date().toLocaleDateString()});localStorage.setItem('norkie_actu',JSON.stringify(actus));document.getElementById('msg').innerHTML='<div style="background:#dcfce7;padding:12px;border-radius:8px;margin-top:12px"><b style="color:green">✅ Publie en local! Va voir boutique.</b><br>'+titre+'<br>'+prixV+' FBu</div>';}
+function genererCode(){let titre=document.getElementById('t').value.trim()||"REVIVE",contenu=document.getElementById('c').value.trim()||"Poudre naturelle",prixV=document.getElementById('prix').value.trim()||"189000",imgSrc=fileName||"IMG_20260912_105904_339.jpg";let html='<div class="card">\n<img src="'+imgSrc+'">\n<div class="card-body"><h3>🌿 '+titre+'</h3><p>'+contenu+'</p><div class="price">'+prixV+' FBu</div><a href="https://wa.me/25762189087?text=Je veux '+encodeURIComponent(titre)+'" class="btn">Commander</a></div>\n</div>';document.getElementById('codeBox').textContent=html;document.getElementById('codeResult').style.display='block';}
+function copyCode(){navigator.clipboard.writeText(document.getElementById('codeBox').textContent).then(()=>alert('Code copie! Colle dans index.html ligne 55'));}
+changeType();
 </script>
 </body>
 </html>
