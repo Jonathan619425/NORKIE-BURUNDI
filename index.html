@@ -531,5 +531,12 @@ footer{background:#0a3d1f;color:#cde9d0;text-align:center;padding:30px 5%;margin
 <small>📅 20/09/2026 - WhatsApp: +257 62189087</small>
 </div>
 </section>
+  <script>
+function commander(nomProduit) {
+  let message = "Bonjour NORKIE-BURUNDI 👋 Je veux commander : " + nomProduit + " - C'est combien? Je suis à Bujumbura.";
+  let url = "https://wa.me/25762189087?text=" + encodeURIComponent(message);
+  window.open(url, '_blank');
+}
+</script>
 </body>
 </html>
