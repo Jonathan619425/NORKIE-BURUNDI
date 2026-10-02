@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jonathan619425.github.io/NORKIE-BURUNDI/sitemap.xml
